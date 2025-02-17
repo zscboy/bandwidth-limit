@@ -1,0 +1,10 @@
+{
+    "version": 0,
+
+    "tools": {
+        "tc": {
+            "label": "TC",
+            "path": "tc.html"
+        }
+    }
+}
