@@ -1,0 +1,13 @@
+[Unit]
+Description=My Bandwidth Control Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u //bandwidth_scheduler.py --config_file /root/bandwidth/bandwidth_scheduler.json
+ExecStopPost=/usr/bin/python3 -u /root/bandwidth/bandwidth_scheduler.py --function unlimit_rate
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
