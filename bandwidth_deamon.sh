@@ -6,13 +6,13 @@
 # 4. 停止限速
 # 5. 启动定时器
 
-DEFAULT_INTERFACE="eth0"
+UNKNOW_INTERFACE="unknow"
 INTERFACE=""
 
 function getInterface() {
-    INTERFACE=$(ip -o link show up | awk -F': ' '{print $2}' | while read iface; do [ "$(cat /sys/class/net/$iface/speed 2>/dev/null)" = "10000" ] && echo $iface; done)
+    INTERFACE=$(systemctl show --property=Environment bandwidth-limit.service | cut -d'=' -f3)
     ## set default interface
-    INTERFACE=${INTERFACE:-$DEFAULT_INTERFACE}
+    INTERFACE=${INTERFACE:-$UNKNOW_INTERFACE}
 }
 
 function queryBandwidthLimitStatus() {

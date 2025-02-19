@@ -4,18 +4,20 @@ const toggleButton = document.getElementById('toggleButton');
 const addTimesButton = document.getElementById('addTimes');
 const saveConfigButton = document.getElementById('saveConfig');
 
-const configPath = "/root/bandwidth/bandwidth_scheduler.json";  // JSON 配置路径
+const configPath = "/etc/bandwidth-limit/bandwidth_scheduler.json";  // JSON 配置路径
+const deamonPath = "/usr/local/bandwidth-limit/bandwidth_deamon.sh"
 
 let timeSlots = [];
 let rate = "";
 
 function updateStatus() {
-        cockpit.spawn(['bash', '-c', "/root/bandwidth/bandwidth-deamon.sh status"])
+        cockpit.spawn(['bash', '-c', deamonPath + ' status'])
             .then((data) => {
                 statusDiv.innerHTML = `<pre>${data}</pre>`;
             })
             .catch((error) => {
                 statusDiv.innerHTML = `<pre>Error: ${error}</pre>`;
+                statusDiv.style.color = "red";
             });
 
 
@@ -23,15 +25,15 @@ function updateStatus() {
 }
 
 function setbutton() {
-	cockpit.spawn(['bash', '-c', "/root/bandwidth/bandwidth-deamon.sh service_status"])
+	cockpit.spawn(['bash', '-c', deamonPath + ' service_status'])
             .then((data) => {
 		console.log("data", data)
 		if (data.trim() === 'active') {
-                   toggleButton.textContent = "Stop";
+                   toggleButton.textContent = "停止";
                    toggleButton.style.color = "green";
 
                 } else {
-                   toggleButton.textContent = "Start";
+                   toggleButton.textContent = "启动";
                    toggleButton.style.color = "green";
 		} 
 
@@ -45,7 +47,7 @@ function setbutton() {
 
 function startOrStop() {
 	console.log("start or stop");
-	cockpit.spawn(['bash', '-c', "/root/bandwidth/bandwidth-deamon.sh service_status"])
+	cockpit.spawn(['bash', '-c', deamonPath + ' service_status'])
             .then((data) => {
                 if (data.trim() === 'active') {
                     // 停止定时器并取消限速

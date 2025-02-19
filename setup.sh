@@ -17,13 +17,14 @@ install_bandwidth_limit() {
         # 解压 zip 文件，并去掉版本号
         unzip /tmp/bandwidth-limit.zip
         mv bandwidth-limit-0.0.1 bandwidth-limit
+        chmod +x bandwidth-limit/bandwidth_deamon.sh
 
         # install tc web
         mkdir -p /root/.local/share/cockpit
         ln -s /usr/local/bandwidth-limit/web /root/.local/share/cockpit/tc
 
-        mkdir -p /etc/bandwidth-limit
         ## 保留原配置
+        mkdir -p /etc/bandwidth-limit
         cp -n bandwidth-limit/bandwidth_scheduler.json /etc/bandwidth-limit
 
         ###TODO　创建web软连接
@@ -42,8 +43,9 @@ Description=My Bandwidth Control Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u /usr/local/bandwidth-limit/bandwidth_scheduler.py --config_file /etc/bandwidth-limit/bandwidth_scheduler.json --interface $interface
-ExecStopPost=/usr/bin/python3 -u /usr/local/bandwidth-limit/bandwidth_scheduler.py --function unlimit_rate --interface $interface
+Environment="INTERFACE=$interface"
+ExecStart=/usr/bin/python3 -u /usr/local/bandwidth-limit/bandwidth_scheduler.py --config_file /etc/bandwidth-limit/bandwidth_scheduler.json --interface \${INTERFACE}
+ExecStopPost=/usr/bin/python3 -u /usr/local/bandwidth-limit/bandwidth_scheduler.py --function unlimit_rate --interface \${INTERFACE}
 StandardOutput=journal
 StandardError=journal
 Restart=on-failure
