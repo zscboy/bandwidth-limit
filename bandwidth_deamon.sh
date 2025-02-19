@@ -6,7 +6,14 @@
 # 4. 停止限速
 # 5. 启动定时器
 
-INTERFACE="ens33"
+DEFAULT_INTERFACE="eth0"
+INTERFACE=""
+
+function getInterface() {
+    INTERFACE=$(ip -o link show up | awk -F': ' '{print $2}' | while read iface; do [ "$(cat /sys/class/net/$iface/speed 2>/dev/null)" = "10000" ] && echo $iface; done)
+    ## set default interface
+    INTERFACE=${INTERFACE:-$DEFAULT_INTERFACE}
+}
 
 function queryBandwidthLimitStatus() {
     tc qdisc show dev "$INTERFACE" | grep -oP 'rate \K[^\s]+' || echo "unlimit"
@@ -31,8 +38,9 @@ function startTimer() {
 }
 
 function queryStatus() {
-    echo "timer     status: $(systemctl is-active bandwidth-limit)"
-    echo "bandwidth status: $(queryBandwidthLimitStatus)"
+    echo "网  口: $INTERFACE"
+    echo "定时器: $(systemctl is-active bandwidth-limit)"
+    echo "带  宽: $(queryBandwidthLimitStatus)"
 }
 
 function start() {
@@ -45,6 +53,8 @@ function stop() {
 }
 
 function main() {
+    getInterface
+
     case "$1" in
     status)
         queryStatus

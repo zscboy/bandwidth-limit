@@ -3,7 +3,7 @@
 
     "tools": {
         "tc": {
-            "label": "TC",
+            "label": "网络限速",
             "path": "tc.html"
         }
     }

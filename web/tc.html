@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TC</title>
+    <title>网络限速</title>
     <meta charset="utf-8">
     <script src="../base1/cockpit.js"></script>
 </head>
 <body>
-  <h1>TC Limiter</h1>
   <main tabindex="-1">
-        <section>
-
-  <div id="status">
-    <!-- 在此处显示 tc 状态和定时器状态 -->
-  </div>
-  <button id="toggleButton">Toggle Limiter</button>
-   <br/>
-   <br/>
-    <h3>非限制时间段</h3>
-    <div id="timeSlotsContainer">
+    <section>
+      <h1>当前状态</h1>
+      <div id="status">
+      <!-- 在此处显示 tc 状态和定时器状态 -->
+      </div>
+      <button id="toggleButton">Toggle Limiter</button>
+      <br/>
+      <br/>
+      <h3>非限制时间段</h3>
+      <div id="timeSlotsContainer">
         <!-- 这里展示已存在的时间段 -->
-    </div>
+      </div>
     
-    <button id="addTimes">添加时间段</button>
-    <button id="saveConfig">保存配置</button>
+      <button id="addTimes">添加时间段</button>
+      <button id="saveConfig">保存配置</button>
 
-    <script src="tc.js"></script>
-  </section>
+      <script src="tc.js"></script>
+    </section>
   </main>
 </body>
 </html>

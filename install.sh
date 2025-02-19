@@ -18,7 +18,11 @@ install_bandwidth_limit() {
         unzip /tmp/bandwidth-limit.zip
         mv bandwidth-limit-0.0.1 bandwidth-limit
 
-        mkdir /etc/bandwidth-limit
+        # install tc web
+        mkdir -p /root/.local/share/cockpit
+        ln -s /usr/local/bandwidth-limit/web /root/.local/share/cockpit/tc
+
+        mkdir -p /etc/bandwidth-limit
         ## 保留原配置
         cp -n bandwidth-limit/bandwidth_scheduler.json /etc/bandwidth-limit
 
@@ -46,7 +50,6 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-
 EOF
 
 
@@ -66,6 +69,7 @@ delete() {
     systemctl disable bandwidth-limit
 
     rm /etc/systemd/system/bandwidth-limit.service
+    rm -rf /root/.local/share/cockpit/tc
     rm -rf /usr/local/bandwidth-limit
 }
 
