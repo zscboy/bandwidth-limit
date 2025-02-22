@@ -11,7 +11,26 @@
       <h1>当前状态</h1>
       <div id="status">
       <!-- 在此处显示 tc 状态和定时器状态 -->
+        <label for="currentStatus">开关: </label>
+        <span id="currentStatus">加载中...</span>
+        <br/>
+        
+        <label for="netInterface">网口: </label>
+        <span id="netInterface">加载中...</span>
+        <br/>
+        
+        <label for="timerStatus">定时器: </label>
+        <span id="timerStatus">加载中...</span>
+        <br/>
+        
+        <label for="requireBandwidthStatus">要求限制带宽: </label>
+        <span id="requireBandwidthStatus">加载中...</span>
+        <br/>
+
+        <label for="currentBandwidthStatus">当前限制带宽: </label>
+        <span id="currentBandwidthStatus">加载中...</span>
       </div>
+      <br/>
       <button id="toggleButton">Toggle Limiter</button>
       <br/>
       <br/>
@@ -21,8 +40,15 @@
       </div>
       
       <br/>
-      <button id="addTimes">添加时间段</button>
-      <button id="saveConfig">保存配置</button>
+      <button id="addTimes">添加</button>
+      <button id="saveTimes">保存</button>
+
+      <br/>
+      <br/>
+      <h3>设置带宽</h3>
+      <label for="setBandwidth">设置带宽: </label>
+      <input type="text" id="setBandwidth" placeholder="输入带宽值，例如 20Mbit">
+      <button id="saveBandwidth">保存</button>
 
       <script src="tc.js"></script>
     </section>

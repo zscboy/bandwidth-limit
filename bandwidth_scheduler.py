@@ -7,6 +7,9 @@ from datetime import datetime
 
 # 获取目标速率
 def get_target_rate(json_config):
+    if json_config["switch"] == "off":
+        return None
+
     now = datetime.now().time()
     for timer in json_config["no_limit_times"]:
         start_time = datetime.strptime(timer["start"], "%H:%M").time()
