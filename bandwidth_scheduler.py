@@ -61,6 +61,7 @@ def handle_bandwidth(json_config, interface):
     # 判断crrent_rate是否与target_rate一样，不一样则修改，一样则不用修改
     print(f"no-limit-times:")
     print_unlimit_times(json_config)
+    print("swicth:", json_config["switch"])
 
     target_rate = get_target_rate(json_config)
     current_rate = get_current_rate(interface)
