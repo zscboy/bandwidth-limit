@@ -5,6 +5,6 @@
             "end": "23:59"
         }
     ],
-    "switch": "on",
+    "switch": "off",
     "rate": "20Mbit"
 }
