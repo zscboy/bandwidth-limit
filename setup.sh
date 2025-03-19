@@ -17,7 +17,6 @@ install_bandwidth_limit() {
         # 解压 zip 文件，并去掉版本号
         unzip /tmp/bandwidth-limit.zip
         mv bandwidth-limit-0.0.1 bandwidth-limit
-        chmod +x bandwidth-limit/bandwidth_deamon.sh
 
         # install tc web
         mkdir -p /root/.local/share/cockpit
